@@ -10,3 +10,4 @@ lightgbm
 tensorflow
 openai
 keras
+speech_recognition
