@@ -1,8 +1,8 @@
 import streamlit as st
 import openai
 import requests
-import os
 import speech_recognition as sr
+from io import BytesIO
 
 # Define Azure OpenAI connection details
 azure_openai_key = "22ec84421ec24230a3638d1b51e3a7dc"  # Replace with your actual key
@@ -50,15 +50,18 @@ def extract_text_from_audio(audio_file):
 def main():
     st.title("Correct Errors in Speech Using Azure OpenAI GPT-4")
     
-    # Directly use the provided .wav file path
-    audio_path = "OSR_us_000_0032_8k.wav"
+    # Upload .wav file
+    uploaded_file = st.file_uploader("Upload a .wav audio file", type=["wav"])
     
-    # Check if the file exists before processing
-    if os.path.exists(audio_path):
-        st.write(f"Processing audio file: {audio_path}")
+    if uploaded_file is not None:
+        st.write(f"Processing uploaded audio file: {uploaded_file.name}")
         
-        # Extract text from the audio file
-        extracted_text = extract_text_from_audio(audio_path)
+        # Convert the uploaded file to a format that can be read by speech recognition
+        audio_bytes = uploaded_file.read()
+        audio_data = BytesIO(audio_bytes)
+        
+        # Extract text from the uploaded audio file
+        extracted_text = extract_text_from_audio(audio_data)
         
         if extracted_text:
             st.write("**Extracted Text from Audio:**")
@@ -73,7 +76,7 @@ def main():
                     st.write("**Corrected Text:**")
                     st.write(corrected_text)
     else:
-        st.error(f"Audio file not found at {audio_path}. Please check the path.")
+        st.write("Please upload a .wav file to proceed.")
 
 if __name__ == "__main__":
     main()
