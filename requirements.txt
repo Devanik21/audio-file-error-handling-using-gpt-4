@@ -10,4 +10,7 @@ lightgbm
 tensorflow
 openai
 keras
+openai
+requests
+SpeechRecognition
 
