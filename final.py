@@ -51,7 +51,7 @@ def main():
     st.title("Correct Errors in Speech Using Azure OpenAI GPT-4")
     
     # Directly use the provided .wav file path
-    audio_path = "C:\\Users\\debna\\OneDrive\\Desktop\\speech_with_more_mistakes.wav"
+    audio_path = "speech_with_more_mistakes.wav"
     
     # Check if the file exists before processing
     if os.path.exists(audio_path):
